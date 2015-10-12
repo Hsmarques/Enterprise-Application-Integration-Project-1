@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+	<smartphone modelo = "SAMSUNG Galaxy S5">
+		<preco></preco>
+		<cor></cor>
+		<so>Android Kitkat 4.4.2</so>
+		<processador>Quad-Core 2,5 GHz</processador>
+		<ecra>
+			<tecnologia_ecra></tecnologia_ecra>
+			<tamanho_ecra></tamanho_ecra>
+		</ecra>
+		<comunicacoes>
+			<redes></redes>
+			<bluetooth></bluetooth>
+			<wifi></wifi>
+		</comunicacoes>
+		<fotografia>
+			<camara_traseira></camara_traseira>
+			<camara_frontal></camara_frontal>
+		</fotografia>
+		<compatibilidade>
+			<formatos></formatos>
+		</compatibilidade>
+		<ligacoes></ligacoes>
+		<armazenamento>
+			<memoria_interna></memoria_interna>
+			<leitor_sd></leitor_sd>
+		</armazenamento>
+		<bateria>
+			<tipo></tipo>
+			<autonomia></autonomia>
+		</bateria>
+		<diversos>
+			<dimensoes></dimensoes>
+			<peso></peso>
+			<taxa_absorcao></taxa_absorcao>
+		</diversos>
+
+		
+	</smartphone>

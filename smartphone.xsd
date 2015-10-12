@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="smartphone">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="preco"/>
+        <xs:element ref="cor"/>
+        <xs:element ref="so"/>
+        <xs:element ref="processador"/>
+        <xs:element ref="ecra"/>
+        <xs:element ref="comunicacoes"/>
+        <xs:element ref="fotografia"/>
+        <xs:element ref="compatibilidade"/>
+        <xs:element ref="ligacoes"/>
+        <xs:element ref="armazenamento"/>
+        <xs:element ref="bateria"/>
+        <xs:element ref="diversos"/>
+      </xs:sequence>
+      <xs:attribute name="modelo" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="preco">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="cor">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="so" type="xs:string"/>
+  <xs:element name="processador" type="xs:string"/>
+  <xs:element name="ecra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tecnologia_ecra"/>
+        <xs:element ref="tamanho_ecra"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tecnologia_ecra">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="tamanho_ecra">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="comunicacoes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="redes"/>
+        <xs:element ref="bluetooth"/>
+        <xs:element ref="wifi"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="redes">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="bluetooth">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="wifi">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="fotografia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="camara_traseira"/>
+        <xs:element ref="camara_frontal"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="camara_traseira">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="camara_frontal">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="compatibilidade">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="formatos"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="formatos">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="ligacoes">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="armazenamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="memoria_interna"/>
+        <xs:element ref="leitor_sd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="memoria_interna">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="leitor_sd">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="bateria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tipo"/>
+        <xs:element ref="autonomia"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tipo">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="autonomia">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="diversos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="dimensoes"/>
+        <xs:element ref="peso"/>
+        <xs:element ref="taxa_absorcao"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dimensoes">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="peso">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="taxa_absorcao">
+    <xs:complexType/>
+  </xs:element>
+</xs:schema>
