@@ -46,6 +46,7 @@ public class WebCrawler {
 		
 		for(Element e: test){
 			System.out.println(e.child(0).absUrl("href"));
+			System.out.println("HELLO");
 			try {
 				doc_child = Jsoup.connect(e.child(0).absUrl("href")).get();
 			} catch (IOException e1) {
