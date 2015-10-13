@@ -54,24 +54,30 @@ public class WebCrawler {
 				
 				dom_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
 				
-				Elements titlePicker = dom_child.select(".pageTitle > span");/*Gets the title tag and content*/
+				Elements titlePicker = dom_child.select(".pageTitle > span");
 				Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
-				Elements categoriesPicker = dom_child.select(".simpleTable tr");
+				Elements categoriesPicker = dom_child.select("table.simpleTable tr");
 				
-			
+				System.out.println("=======================================");
+				System.out.println("Model:" + titlePicker.text());
+				System.out.println("Preco" + pricePicker.text());
+				
 				
 				
 				for(Element aspects : categoriesPicker){
 					
-					
+				
 					
 					switch(aspects.select("th").text().toLowerCase()){
 				
 						case "sistema operativo":
 							System.out.println("so: " + aspects.select("td").text());
 						break;
+						case "processador":
+							System.out.println("processador:" + aspects.select("td").text());
+						break;
 						case "tecnologia do ecrã":  
-							System.out.println("tecnologia ecra: "+ aspects.select("td").text()+"\n");
+							System.out.println("tecnologia ecra: "+ aspects.select("td").text());
 						break;
 						case "tamanho do ecrã":  
 							System.out.println("tamanho ecra:" + aspects.select("td").text());
@@ -85,27 +91,35 @@ public class WebCrawler {
 						case "bluetooth":  
 							System.out.println("bluetooth:" + aspects.select("td").text());
 						break;
-						case "wifi":  
-							System.out.println("wifi:" + aspects.select("td").text());
+						case "wi-fi":  
+							System.out.println("wi-fi:" + aspects.select("td").text());
 						break;
+						case "resolução máxima (em pixeis)":
+							
+							if(aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")){
+								System.out.println("câmara:" + aspects.select("td").text());
+								break;
+							}
+							else{
+								break;	
+							}
 						case "câmera frontal":
-							System.out.println("CAMERAAAAAA");
-							if(aspects.parent().previousElementSibling().text().toLowerCase() == "fotografia")
-								System.out.println("funciona!!!!!!!!!!!!!");
-							else
-								System.out.println("nao funciona ");
+							
 						break;
-						case "câmera traseira":
-						break;	
+					
 						case "bateria":
+							System.out.println(aspects.select("td").text());
 						break;
 						case "autonomia":
+							System.out.println(aspects.select("td").text());
 						break;
 						case "dimensoes":
+							System.out.println(aspects.select("td").text());
 						break;
-						case "pesos":
+						case "peso":
+							System.out.println(aspects.select("td").text());
 						break;
-						default://System.out.println("default break");
+						default: 
 						break;
 				
 					}
@@ -118,8 +132,7 @@ public class WebCrawler {
 			
 		}
 		
-		String title = dom.title();
-		System.out.println(title);
+		
 	}
 
 }
