@@ -93,10 +93,11 @@ public class WebCrawler {
 							System.out.println("processador:" + aspects.select("td").text());
 						break;
 						case "tecnologia do ecrã":  
-							
+							screen.setType(aspects.select("td").text());
 							System.out.println("tecnologia ecra: "+ aspects.select("td").text());
 						break;
 						case "tamanho do ecrã":  
+							screen.setType(aspects.select("td").text());
 							System.out.println("tamanho ecra:" + aspects.select("td").text());
 						break;
 						case "frequências":  
@@ -146,6 +147,7 @@ public class WebCrawler {
 				e1.printStackTrace();
 			}
 		}
+	}
 		
 		/*MARSHALL AND UNMARSHALL
 		 * try {
@@ -160,10 +162,17 @@ public class WebCrawler {
 			e1.printStackTrace();
 		}*/
 		
-		
-		
-		
-		
-	}
-
+		/*public static Document jSoupLoader(String url) {
+	        Document dom = null;
+	        try {
+	            // Load the DOM
+	            dom = Jsoup.connect(url).timeout(0).get();
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+	        return dom;
+	    }*/
 }
+
+
