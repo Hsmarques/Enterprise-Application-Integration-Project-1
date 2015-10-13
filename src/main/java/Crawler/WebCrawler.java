@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 public class WebCrawler {
 	
+	
 	public static void main(String[] args) {
 		
 		Properties prop = new Properties();
@@ -32,22 +33,84 @@ public class WebCrawler {
 			}
 		}
 		
-		Document doc = null;
-		Document doc_child = null;
+		Document dom = null;
+		Document dom_child = null;
 		
 		try {
-			doc = Jsoup.connect(prop.getProperty("url")).get();
+			
+			//Load the DOM
+			dom = Jsoup.connect(prop.getProperty("url")).timeout(0).get();
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Elements test = doc.select("header.productTitle");
+		Elements phoneList = dom.select("header.productTitle");
 		
-		for(Element e: test){
-			System.out.println(e.child(0).absUrl("href"));
+		for(Element e: phoneList){
+			//System.out.println("Next URL: "+ e.child(0).absUrl("href"));
 			try {
-				doc_child = Jsoup.connect(e.child(0).absUrl("href")).get();
+				
+				dom_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
+				
+				Elements titlePicker = dom_child.select(".pageTitle > span");/*Gets the title tag and content*/
+				Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
+				Elements categoriesPicker = dom_child.select(".simpleTable tr");
+				
+			
+				
+				
+				for(Element aspects : categoriesPicker){
+					
+					
+					
+					switch(aspects.select("th").text().toLowerCase()){
+				
+						case "sistema operativo":
+							System.out.println("so: " + aspects.select("td").text());
+						break;
+						case "tecnologia do ecrã":  
+							System.out.println("tecnologia ecra: "+ aspects.select("td").text()+"\n");
+						break;
+						case "tamanho do ecrã":  
+							System.out.println("tamanho ecra:" + aspects.select("td").text());
+						break;
+						case "frequências":  
+							System.out.println("Frequências:" + aspects.select("td").text());
+						break;
+						case "redes":  
+							System.out.println("redes:" + aspects.select("td").text());
+						break;
+						case "bluetooth":  
+							System.out.println("bluetooth:" + aspects.select("td").text());
+						break;
+						case "wifi":  
+							System.out.println("wifi:" + aspects.select("td").text());
+						break;
+						case "câmera frontal":
+							System.out.println("CAMERAAAAAA");
+							if(aspects.parent().previousElementSibling().text().toLowerCase() == "fotografia")
+								System.out.println("funciona!!!!!!!!!!!!!");
+							else
+								System.out.println("nao funciona ");
+						break;
+						case "câmera traseira":
+						break;	
+						case "bateria":
+						break;
+						case "autonomia":
+						break;
+						case "dimensoes":
+						break;
+						case "pesos":
+						break;
+						default://System.out.println("default break");
+						break;
+				
+					}
+				}
+		
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -55,7 +118,7 @@ public class WebCrawler {
 			
 		}
 		
-		String title = doc.title();
+		String title = dom.title();
 		System.out.println(title);
 	}
 
