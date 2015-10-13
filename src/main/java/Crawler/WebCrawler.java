@@ -1,9 +1,16 @@
 package Crawler;
 
+import generated.Smartphone;
+import generated.Smartphones;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,6 +61,11 @@ public class WebCrawler {
 				
 				dom_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
 				
+				Smartphones smartphones = new Smartphones();
+				Smartphone smartphone = new Smartphone();
+				
+				
+				
 				Elements titlePicker = dom_child.select(".pageTitle > span");
 				Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
 				Elements categoriesPicker = dom_child.select("table.simpleTable tr");
@@ -71,12 +83,15 @@ public class WebCrawler {
 					switch(aspects.select("th").text().toLowerCase()){
 				
 						case "sistema operativo":
+							smartphone.setSo(aspects.select("td").text());
 							System.out.println("so: " + aspects.select("td").text());
 						break;
 						case "processador":
+							smartphone.setProcessador(aspects.select("td").text());
 							System.out.println("processador:" + aspects.select("td").text());
 						break;
 						case "tecnologia do ecrã":  
+							
 							System.out.println("tecnologia ecra: "+ aspects.select("td").text());
 						break;
 						case "tamanho do ecrã":  
@@ -124,13 +139,27 @@ public class WebCrawler {
 				
 					}
 				}
-		
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 		}
+		
+		/*MARSHALL AND UNMARSHALL
+		 * try {
+			JAXBContext context = JAXBContext.newInstance(Smartphone.class);
+			Marshaller marshaller = context.createMarshaller();
+			
+			marshaller.marshal(jaxbElement, handler);
+			
+			
+		} catch (JAXBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		
+		
+		
 		
 		
 	}
