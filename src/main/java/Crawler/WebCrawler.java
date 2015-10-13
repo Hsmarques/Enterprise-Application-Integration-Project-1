@@ -1,5 +1,7 @@
 package Crawler;
 
+
+import generated.Screen;
 import generated.Smartphone;
 import generated.Smartphones;
 
@@ -63,7 +65,7 @@ public class WebCrawler {
 				
 				Smartphones smartphones = new Smartphones();
 				Smartphone smartphone = new Smartphone();
-				
+				Screen screen = new Screen();
 				
 				
 				Elements titlePicker = dom_child.select(".pageTitle > span");
@@ -87,7 +89,7 @@ public class WebCrawler {
 							System.out.println("so: " + aspects.select("td").text());
 						break;
 						case "processador":
-							smartphone.setProcessador(aspects.select("td").text());
+							smartphone.setProcessor(aspects.select("td").text());
 							System.out.println("processador:" + aspects.select("td").text());
 						break;
 						case "tecnologia do ecrã":  

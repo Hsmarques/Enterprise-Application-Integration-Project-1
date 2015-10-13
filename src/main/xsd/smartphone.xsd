@@ -11,39 +11,39 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="url"/>
-        <xs:element ref="preco"/>
-        <xs:element ref="cor"/>
+        <xs:element ref="price"/>
+        <xs:element ref="color"/>
         <xs:element ref="so"/>
-        <xs:element ref="processador"/>
-        <xs:element ref="ecra"/>
-        <xs:element ref="redes"/>
-        <xs:element ref="comunicacao"/>
-        <xs:element ref="camara"/>
-        <xs:element ref="tipo_bateria"/>
-        <xs:element ref="autonomia"/>
-        <xs:element ref="dimensoes"/>
-        <xs:element ref="peso"/>
+        <xs:element ref="processor"/>
+        <xs:element ref="screen"/>
+        <xs:element ref="network"/>
+        <xs:element ref="communication"/>
+        <xs:element ref="camera"/>
+        <xs:element ref="battery_type"/>
+        <xs:element ref="autonomy"/>
+        <xs:element ref="dimensions"/>
+        <xs:element ref="weight"/>
       </xs:sequence>
       <xs:attribute name="modelo" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="url" type="xs:anyURI"/>
-  <xs:element name="preco" type="xs:string"/>
-  <xs:element name="cor" type="xs:NCName"/>
+  <xs:element name="price" type="xs:string"/>
+  <xs:element name="color" type="xs:NCName"/>
   <xs:element name="so" type="xs:string"/>
-  <xs:element name="processador" type="xs:string"/>
-  <xs:element name="ecra">
+  <xs:element name="processor" type="xs:string"/>
+  <xs:element name="screen">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tipo"/>
-        <xs:element ref="tamanho"/>
+        <xs:element ref="type"/>
+        <xs:element ref="size"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="tipo" type="xs:string"/>
-  <xs:element name="tamanho" type="xs:string"/>
-  <xs:element name="redes" type="xs:NMTOKEN"/>
-  <xs:element name="comunicacao">
+  <xs:element name="type" type="xs:string"/>
+  <xs:element name="size" type="xs:string"/>
+  <xs:element name="network" type="xs:NMTOKEN"/>
+  <xs:element name="communication">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="bluetooth"/>
@@ -53,18 +53,18 @@
   </xs:element>
   <xs:element name="bluetooth" type="xs:string"/>
   <xs:element name="wifi" type="xs:string"/>
-  <xs:element name="camara">
+  <xs:element name="camera">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="frontal"/>
-        <xs:element ref="traseira"/>
+        <xs:element ref="rear"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="frontal" type="xs:string"/>
-  <xs:element name="traseira" type="xs:string"/>
-  <xs:element name="tipo_bateria" type="xs:string"/>
-  <xs:element name="autonomia" type="xs:string"/>
-  <xs:element name="dimensoes" type="xs:string"/>
-  <xs:element name="peso" type="xs:string"/>
+  <xs:element name="rear" type="xs:string"/>
+  <xs:element name="battery_type" type="xs:string"/>
+  <xs:element name="autonomy" type="xs:string"/>
+  <xs:element name="dimensions" type="xs:string"/>
+  <xs:element name="weight" type="xs:string"/>
 </xs:schema>
