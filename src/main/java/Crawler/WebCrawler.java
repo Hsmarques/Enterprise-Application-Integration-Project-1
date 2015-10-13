@@ -33,36 +33,50 @@ public class WebCrawler {
 			}
 		}
 		
-		Document doc = null;
-		Document doc_child = null;
+		Document dom = null;
+		Document dom_child = null;
 		
 		try {
 			
-			doc = Jsoup.connect(prop.getProperty("url")).timeout(0).get();
+			//Load the DOM
+			dom = Jsoup.connect(prop.getProperty("url")).timeout(0).get();
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Elements test = doc.select("header.productTitle");
+		Elements test = dom.select("header.productTitle");
 		
 		for(Element e: test){
-			System.out.println("Next URL: "+ e.child(0).absUrl("href"));
+			//System.out.println("Next URL: "+ e.child(0).absUrl("href"));
 			try {
 				
-				doc_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
+				dom_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
 				
-				Elements titlePicker = doc_child.select(".pageTitle > span");/*Gets the title tag and content*/
-				Elements pricePicker = doc_child.select("div.currentPrice").select("ins");
-				Elements infoPicker = doc_child.select(".simpleTable tr");/*Gets the phone specifications tag and content*/
+				Elements titlePicker = dom_child.select(".pageTitle > span");/*Gets the title tag and content*/
+				Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
+				Elements categoriesPicker = dom_child.select(".simpleTable tr").select("th");
+				
+			
+				
+				switch(categoriesPicker.text().toLowerCase()){
+				
+					case "sistema operativo": System.out.println(categoriesPicker.select("td").text()); 
+					break;
+					case "processador":  System.out.println(categoriesPicker.select("td").text());
+					break;
+					default:System.out.println("default break");
+					break;
+				
+				}
+				Elements infoPicker = dom_child.select(".simpleTable td");/*Gets the phone specifications tag and content*/
 				
 				
 				
-				System.out.println("\n" +" Model:" + titlePicker.text() + "\n");
+				/*System.out.println("\n" +"Model:" + titlePicker.text() + "\n");
 				System.out.println("Price:" +  pricePicker.text() + "\n");
-				System.out.println("pHELLO");
-				System.out.println(infoPicker.text());
+				System.out.println(categoriesPicker.text());*/
 				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -71,7 +85,7 @@ public class WebCrawler {
 			
 		}
 		
-		String title = doc.title();
+		String title = dom.title();
 		System.out.println(title);
 	}
 
