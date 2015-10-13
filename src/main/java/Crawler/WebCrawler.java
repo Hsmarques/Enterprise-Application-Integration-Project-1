@@ -55,7 +55,7 @@ public class WebCrawler {
 				
 				Elements titlePicker = doc_child.select(".pageTitle > span");/*Gets the title tag and content*/
 				Elements pricePicker = doc_child.select("div.currentPrice").select("ins");
-				Elements infoPicker = doc_child.select("tr");/*Gets the phone specifications tag and content*/
+				Elements infoPicker = doc_child.select(".simpleTable tr");/*Gets the phone specifications tag and content*/
 				
 				
 				
