@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 public class WebCrawler {
 	
+	
 	public static void main(String[] args) {
 		
 		Properties prop = new Properties();
@@ -36,7 +37,9 @@ public class WebCrawler {
 		Document doc_child = null;
 		
 		try {
-			doc = Jsoup.connect(prop.getProperty("url")).get();
+			
+			doc = Jsoup.connect(prop.getProperty("url")).timeout(0).get();
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,9 +48,22 @@ public class WebCrawler {
 		Elements test = doc.select("header.productTitle");
 		
 		for(Element e: test){
-			System.out.println(e.child(0).absUrl("href"));
+			System.out.println("Next URL: "+ e.child(0).absUrl("href"));
 			try {
-				doc_child = Jsoup.connect(e.child(0).absUrl("href")).get();
+				
+				doc_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
+				
+				Elements titlePicker = doc_child.select(".pageTitle > span");/*Gets the title tag and content*/
+				Elements pricePicker = doc_child.select("div.currentPrice").select("ins");
+				Elements infoPicker = doc_child.select("tr");/*Gets the phone specifications tag and content*/
+				
+				
+				
+				System.out.println("\n" +" Model:" + titlePicker.text() + "\n");
+				System.out.println("Price:" +  pricePicker.text() + "\n");
+				System.out.println("pHELLO");
+				System.out.println(infoPicker.text());
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
