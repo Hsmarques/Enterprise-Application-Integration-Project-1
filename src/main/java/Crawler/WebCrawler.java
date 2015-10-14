@@ -1,5 +1,6 @@
 package Crawler;
 
+import generated.Communication;
 import generated.Screen;
 import generated.Smartphone;
 import generated.Smartphones;
@@ -55,6 +56,7 @@ public class WebCrawler {
 			Smartphones smartphones = new Smartphones();
 			Smartphone smartphone = new Smartphone();
 			Screen screen = new Screen();
+			Communication communication = new Communication();
 
 			Elements titlePicker = dom_child.select(".pageTitle > span");
 			Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
@@ -85,37 +87,48 @@ public class WebCrawler {
 					System.out.println("tamanho ecra:" + aspects.select("td").text());
 					break;
 				case "frequências":
-					smartphone.set
-					System.out.println("Frequências:" + aspects.select("td").text());
+					smartphone.setFrequency(aspects.select("td").text());
+					System.out.println("Frequências:" + aspects.select("td").text() );
 					break;
 				case "bluetooth":
+					communication.setBluetooth(aspects.select("td").text());
 					System.out.println("bluetooth:" + aspects.select("td").text());
 					break;
 				case "wi-fi":
+					communication.setWifi(aspects.select("td").text());
 					System.out.println("wi-fi:" + aspects.select("td").text());
 					break;
 				case "resolução máxima (em pixeis)":
 
 					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+						smartphone.setCamera(aspects.select("td").text());
 						System.out.println("câmara:" + aspects.select("td").text());
 						break;
 					} else {
 						break;
 					}
 				case "câmera frontal":
-
-					break;
-
+					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+						smartphone.setCamera(aspects.select("td").text());
+						System.out.println("câmara:" + aspects.select("td").text());
+						break;
+					} else {
+						break;
+					}
 				case "bateria":
+					smartphone.setBatteryType(aspects.select("td").text());
 					System.out.println(aspects.select("td").text());
 					break;
 				case "autonomia":
+					smartphone.setAutonomy(aspects.select("td").text());
 					System.out.println(aspects.select("td").text());
 					break;
 				case "dimensoes":
+					smartphone.setDimensions(aspects.select("td").text());
 					System.out.println(aspects.select("td").text());
 					break;
 				case "peso":
+					smartphone.setWeight(aspects.select("td").text());
 					System.out.println(aspects.select("td").text());
 					break;
 				default:

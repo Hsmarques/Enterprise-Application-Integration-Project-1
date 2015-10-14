@@ -55,16 +55,7 @@
   </xs:element>
   <xs:element name="bluetooth" type="xs:string"/>
   <xs:element name="wifi" type="xs:string"/>
-  <xs:element name="camera">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="frontal"/>
-        <xs:element ref="rear"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="frontal" type="xs:string"/>
-  <xs:element name="rear" type="xs:string"/>
+  <xs:element name="camera" type="xs:string"/>
   <xs:element name="battery_type" type="xs:string"/>
   <xs:element name="autonomy" type="xs:string"/>
   <xs:element name="dimensions" type="xs:string"/>
