@@ -24,7 +24,7 @@ import org.jsoup.select.Elements;
 
 public class WebCrawler {
 
-	static List smartphonesList = new ArrayList();
+	static Smartphones smartphonesList = new Smartphones ();
 
 	public static void main(String[] args) {
 
@@ -58,7 +58,7 @@ public class WebCrawler {
 			// System.out.println("Next URL: "+ e.child(0).absUrl("href"));
 			dom_child = jSoupLoader(e.child(0).absUrl("href"));
 
-			Smartphones smartphones = new Smartphones();
+			
 			Smartphone smartphone = new Smartphone();
 			Screen screen = new Screen();
 			Communication communication = new Communication();
@@ -70,6 +70,9 @@ public class WebCrawler {
 			System.out.println("=======================================");
 			System.out.println("Model:" + titlePicker.text());
 			System.out.println("Preco" + pricePicker.text());
+			
+			smartphone.setModel(titlePicker.text());
+			smartphone.setPrice(pricePicker.text());
 
 			for (Element aspects : categoriesPicker) {
 
@@ -77,37 +80,29 @@ public class WebCrawler {
 
 				case "sistema operativo":
 					smartphone.setSo(aspects.select("td").text());
-					System.out.println("so: " + aspects.select("td").text());
 					break;
 				case "processador":
 					smartphone.setProcessor(aspects.select("td").text());
-					System.out.println("processador:" + aspects.select("td").text());
 					break;
 				case "tecnologia do ecrã":
 					screen.setType(aspects.select("td").text());
-					System.out.println("tecnologia ecra: " + aspects.select("td").text());
 					break;
 				case "tamanho do ecrã":
 					screen.setSize(aspects.select("td").text());
-					System.out.println("tamanho ecra:" + aspects.select("td").text());
 					break;
 				case "frequências":
 					smartphone.setFrequency(aspects.select("td").text());
-					System.out.println("Frequências:" + aspects.select("td").text());
 					break;
 				case "bluetooth":
 					communication.setBluetooth(aspects.select("td").text());
-					System.out.println("bluetooth:" + aspects.select("td").text());
 					break;
 				case "wi-fi":
 					communication.setWifi(aspects.select("td").text());
-					System.out.println("wi-fi:" + aspects.select("td").text());
 					break;
 				case "resolução máxima (em pixeis)":
-
 					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
 						smartphone.setCamera(aspects.select("td").text());
-						System.out.println("câmara:" + aspects.select("td").text());
+						
 						break;
 					} else {
 						break;
@@ -115,36 +110,32 @@ public class WebCrawler {
 				case "câmera frontal":
 					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
 						smartphone.setCamera(aspects.select("td").text());
-						System.out.println("câmara:" + aspects.select("td").text());
 						break;
 					} else {
 						break;
 					}
 				case "bateria":
 					smartphone.setBatteryType(aspects.select("td").text());
-					System.out.println(aspects.select("td").text());
 					break;
 				case "autonomia":
 					smartphone.setAutonomy(aspects.select("td").text());
-					System.out.println(aspects.select("td").text());
 					break;
 				case "dimensoes":
 					smartphone.setDimensions(aspects.select("td").text());
-					System.out.println(aspects.select("td").text());
 					break;
 				case "peso":
 					smartphone.setWeight(aspects.select("td").text());
-					System.out.println(aspects.select("td").text());
 					break;
 				default:
 					break;
 
 				}
+				smartphonesList.getSmartphone().add(smartphone);
 			}
-
-		}
+		}	
+		System.out.println(smartphonesList );
 	}
-
+	
 	public static void marshall(Smartphones smartphones) {
 
 		try {
