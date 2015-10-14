@@ -8,6 +8,9 @@ import generated.Smartphones;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
@@ -20,6 +23,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WebCrawler {
+
+	static List smartphonesList = new ArrayList();
 
 	public static void main(String[] args) {
 
@@ -88,7 +93,7 @@ public class WebCrawler {
 					break;
 				case "frequências":
 					smartphone.setFrequency(aspects.select("td").text());
-					System.out.println("Frequências:" + aspects.select("td").text() );
+					System.out.println("Frequências:" + aspects.select("td").text());
 					break;
 				case "bluetooth":
 					communication.setBluetooth(aspects.select("td").text());
@@ -140,17 +145,24 @@ public class WebCrawler {
 		}
 	}
 
-	/*
-	 * MARSHALL AND UNMARSHALL try { JAXBContext context =
-	 * JAXBContext.newInstance(Smartphone.class); Marshaller marshaller =
-	 * context.createMarshaller();
-	 * 
-	 * marshaller.marshal(jaxbElement, handler);
-	 * 
-	 * 
-	 * } catch (JAXBException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); }
-	 */
+	public static void marshall(Smartphones smartphones) {
+
+		try {
+			StringWriter stringwriter = new StringWriter();
+
+			JAXBContext jaxbContext = JAXBContext.newInstance(Smartphones.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(smartphonesList, stringwriter);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	public static Document jSoupLoader(String url) {
 		Document dom = null;

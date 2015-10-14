@@ -11,5 +11,10 @@
   		<artifactId>jsoup</artifactId>
   		<version>1.8.3</version>
   	</dependency>
+  	<dependency>
+       <groupId>org.wildfly</groupId>
+       <artifactId>wildfly-client-all</artifactId>
+       <version>9.0.1.Final</version>
+    </dependency>
   </dependencies>
 </project>
