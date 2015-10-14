@@ -52,9 +52,9 @@ public class WebCrawler {
 		// Load the DOM
 		dom = jSoupLoader(prop.getProperty("url"));
 
-		Elements phoneList = dom.select("header.productTitle");
+		Elements phoneDom = dom.select("header.productTitle");
 
-		for (Element e : phoneList) {
+		for (Element e : phoneDom) {
 			// System.out.println("Next URL: "+ e.child(0).absUrl("href"));
 			dom_child = jSoupLoader(e.child(0).absUrl("href"));
 
@@ -67,14 +67,14 @@ public class WebCrawler {
 			Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
 			Elements categoriesPicker = dom_child.select("table.simpleTable tr");
 
-			System.out.println("=======================================");
-			System.out.println("Model:" + titlePicker.text());
-			System.out.println("Preco" + pricePicker.text());
+			
 			
 			smartphone.setModel(titlePicker.text());
 			smartphone.setPrice(pricePicker.text());
 
 			for (Element aspects : categoriesPicker) {
+				
+			
 
 				switch (aspects.select("th").text().toLowerCase()) {
 
@@ -107,13 +107,16 @@ public class WebCrawler {
 					} else {
 						break;
 					}
-				case "câmera frontal":
+				case "câmera traseira":
 					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
 						smartphone.setCamera(aspects.select("td").text());
 						break;
-					} else {
+					} else if(aspects.parent().previousElementSibling().text().toLowerCase().equals("fotografia")) {
+						smartphone.setCamera(aspects.select("td").text());
 						break;
 					}
+					else 
+						break;
 				case "bateria":
 					smartphone.setBatteryType(aspects.select("td").text());
 					break;
@@ -130,11 +133,14 @@ public class WebCrawler {
 					break;
 
 				}
-				smartphonesList.getSmartphone().add(smartphone);
 			}
-		}	
-		System.out.println(smartphonesList );
+			smartphonesList.getSmartphone().add(smartphone);
+			
+		}
+		marshall(smartphonesList);
 	}
+	
+
 	
 	public static void marshall(Smartphones smartphones) {
 
@@ -148,6 +154,7 @@ public class WebCrawler {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(smartphonesList, stringwriter);
+			System.out.println(stringwriter.getBuffer());
 
 		} catch (JAXBException e) {
 			e.printStackTrace();
