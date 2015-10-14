@@ -10,6 +10,7 @@ import javax.jms.JMSRuntimeException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -34,7 +35,8 @@ public class ReceiverAsync implements MessageListener {
 
 	public void launch_and_wait() {
 		try (JMSContext jcontext = cf.createContext("hugoapp", "hsmar");) {
-			JMSConsumer consumer = jcontext.createConsumer(d);
+			jcontext.setClientID("hugoapp");
+			JMSConsumer consumer = jcontext.createDurableConsumer((Topic) d,"hugoapp");
 			consumer.setMessageListener(this);
 			System.out.println("Press enter to finish...");
 			System.in.read();

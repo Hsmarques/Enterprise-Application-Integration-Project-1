@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.naming.NamingException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -22,12 +23,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import JMS.Sender;
+
 public class WebCrawler {
 
 	static Smartphones smartphonesList = new Smartphones ();
+	static StringWriter stringwriter = new StringWriter();
 
-	public static void main(String[] args) {
-
+	
+	public static void main(String[] args) throws NamingException {
+		Sender s = new Sender();
+		crawlingThoseWebz();
+		marshall(smartphonesList);
+		s.send(stringwriter.toString());
+	}
+	
+	public static void crawlingThoseWebz(){
+		
 		Properties prop = new Properties();
 		InputStream input = null;
 
@@ -66,16 +78,12 @@ public class WebCrawler {
 			Elements titlePicker = dom_child.select(".pageTitle > span");
 			Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
 			Elements categoriesPicker = dom_child.select("table.simpleTable tr");
-
-			
 			
 			smartphone.setModel(titlePicker.text());
 			smartphone.setPrice(pricePicker.text());
 
 			for (Element aspects : categoriesPicker) {
 				
-			
-
 				switch (aspects.select("th").text().toLowerCase()) {
 
 				case "sistema operativo":
@@ -137,16 +145,11 @@ public class WebCrawler {
 			smartphonesList.getSmartphone().add(smartphone);
 			
 		}
-		marshall(smartphonesList);
 	}
-	
-
 	
 	public static void marshall(Smartphones smartphones) {
 
 		try {
-			StringWriter stringwriter = new StringWriter();
-
 			JAXBContext jaxbContext = JAXBContext.newInstance(Smartphones.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -173,4 +176,7 @@ public class WebCrawler {
 		}
 		return dom;
 	}
+	
+	
+	
 }

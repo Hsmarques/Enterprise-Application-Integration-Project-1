@@ -23,8 +23,8 @@ public class Sender {
 		}
 	}
 
-	private void send(String text) {
-		try (JMSContext jcontext = cf.createContext("hugoapp", "hsmar");) {
+	public void send(String text) {
+		try (JMSContext jcontext = cf.createContext("hugoapp", "hsmar"); ) {
 			JMSProducer mp = jcontext.createProducer();
 			mp.send(d, text);
 		} catch (JMSRuntimeException re) {
@@ -33,8 +33,6 @@ public class Sender {
 	}
 
 	public static void main(String[] args) throws NamingException {
-		Sender s = new Sender();
-		s.send("Hello Receiver!");
 	}
 
 }
