@@ -81,14 +81,12 @@ public class WebCrawler {
 					System.out.println("tecnologia ecra: " + aspects.select("td").text());
 					break;
 				case "tamanho do ecrã":
-					screen.setType(aspects.select("td").text());
+					screen.setSize(aspects.select("td").text());
 					System.out.println("tamanho ecra:" + aspects.select("td").text());
 					break;
 				case "frequências":
+					smartphone.set
 					System.out.println("Frequências:" + aspects.select("td").text());
-					break;
-				case "redes":
-					System.out.println("redes:" + aspects.select("td").text());
 					break;
 				case "bluetooth":
 					System.out.println("bluetooth:" + aspects.select("td").text());
