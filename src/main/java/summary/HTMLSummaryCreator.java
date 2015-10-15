@@ -57,7 +57,7 @@ public class HTMLSummaryCreator implements MessageListener {
 			summary.launch_and_wait();
 		}
 		
-		public void validator(String xml){
+		public void validator(String xml) throws SAXException, IOException{
 			Source schemaFile = new StreamSource(new File("smartphone.xsd"));
 			Source xmlFile = new StreamSource(new File("web.xml"));
 			SchemaFactory schemaFactory = SchemaFactory
