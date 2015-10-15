@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"? standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <xs:element name="smartphones">
     <xs:complexType>
@@ -42,7 +42,7 @@
   <xs:element name="type" type="xs:string"/>
   <xs:element name="size" type="xs:string"/>
   <xs:element name="frequency" type="xs:string"/>
-  <xs:element name="network" type="xs:NMTOKEN"/>
+  <xs:element name="network" type="xs:string"/>
   <xs:element name="communication">
     <xs:complexType>
       <xs:sequence>

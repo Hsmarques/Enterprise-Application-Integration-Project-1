@@ -44,9 +44,9 @@ import javax.xml.bind.annotation.XmlType;
 public class Screen {
 
     @XmlElement(required = true)
-    protected String type;
+    protected String type = "Não especificado";
     @XmlElement(required = true)
-    protected String size;
+    protected String size = "Não especificado";
 
     /**
      * Gets the value of the type property.

@@ -91,60 +91,64 @@ public class WebCrawler {
 				
 				switch (aspects.select("th").text().toLowerCase()) {
 
-				case "sistema operativo":
-					smartphone.setSo(aspects.select("td").text());
-					break;
-				case "processador":
-					smartphone.setProcessor(aspects.select("td").text());
-					break;
-				case "tecnologia do ecrã":
-					screen.setType(aspects.select("td").text());
-					break;
-				case "tamanho do ecrã":
-					screen.setSize(aspects.select("td").text());
-					break;
-				case "frequências":
-					smartphone.setFrequency(aspects.select("td").text());
-					break;
-				case "bluetooth":
-					communication.setBluetooth(aspects.select("td").text());
-					break;
-				case "wi-fi":
-					communication.setWifi(aspects.select("td").text());
-					break;
-				case "resolução máxima (em pixeis)":
-					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
-						smartphone.setCamera(aspects.select("td").text());
-						
+					case "sistema operativo":
+						smartphone.setSo(aspects.select("td").text());
 						break;
-					} else {
+					case "processador":
+						smartphone.setProcessor(aspects.select("td").text());
 						break;
-					}
-				case "câmera traseira":
-					if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
-						smartphone.setCamera(aspects.select("td").text());
+					case "tecnologia do ecrã":
+						screen.setType(aspects.select("td").text());
 						break;
-					} else if(aspects.parent().previousElementSibling().text().toLowerCase().equals("fotografia")) {
-						smartphone.setCamera(aspects.select("td").text());
+					case "tamanho do ecrã":
+						screen.setSize(aspects.select("td").text());
 						break;
-					}
-					else 
+					case "frequências":
+						smartphone.setFrequency(aspects.select("td").text());
 						break;
-				case "bateria":
-					smartphone.setBatteryType(aspects.select("td").text());
-					break;
-				case "autonomia":
-					smartphone.setAutonomy(aspects.select("td").text());
-					break;
-				case "dimensoes":
-					smartphone.setDimensions(aspects.select("td").text());
-					break;
-				case "peso":
-					smartphone.setWeight(aspects.select("td").text());
-					break;
-				default:
-					break;
-
+					case "redes":
+						smartphone.setNetwork(aspects.select("td").text());
+						break;
+					case "bluetooth":
+						communication.setBluetooth(aspects.select("td").text());
+						break;
+					case "wi-fi":
+						communication.setWifi(aspects.select("td").text());
+						break;
+					case "resolução máxima (em pixeis)":
+						if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						} else {
+							break;
+						}
+					case "câmera traseira":
+						if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						} else if(aspects.parent().previousElementSibling().text().toLowerCase().equals("fotografia")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						}
+						else 
+							break;
+					case "bateria":
+						smartphone.setBatteryType(aspects.select("td").text());
+						break;
+					case "autonomia":
+						smartphone.setAutonomy(aspects.select("td").text());
+						break;
+					case "autonomia em conversação":
+						smartphone.setAutonomy(aspects.select("td").text());
+						break;
+					case "dimensões":
+						smartphone.setDimensions(aspects.select("td").text());
+						break;
+					case "peso":
+						smartphone.setWeight(aspects.select("td").text());
+						break;
+					default:
+						break;
 				}
 				
 			}

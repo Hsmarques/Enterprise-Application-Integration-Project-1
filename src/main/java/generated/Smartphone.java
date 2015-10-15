@@ -74,31 +74,29 @@ public class Smartphone {
     @XmlSchemaType(name = "anyURI")
     protected String url;
     @XmlElement(required = true)
-    protected String price;
+    protected String price = "Não especificado";
     @XmlElement(required = true)
-    protected String so;
+    protected String so = "Não especificado";
     @XmlElement(required = true)
-    protected String processor;
+    protected String processor = "Não especificado";
     @XmlElement(required = true)
     protected Screen screen;
     @XmlElement(required = true)
-    protected String frequency;
+    protected String frequency = "Não especificado";
     @XmlElement(required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlSchemaType(name = "NMTOKEN")
-    protected String network;
+    protected String network = "Não especificado";
     @XmlElement(required = true)
     protected Communication communication;
     @XmlElement(required = true)
-    protected String camera;
+    protected String camera = "Não especificado";
     @XmlElement(name = "battery_type", required = true)
-    protected String batteryType;
+    protected String batteryType = "Não especificado";
     @XmlElement(required = true)
-    protected String autonomy;
+    protected String autonomy = "Não especificado";
     @XmlElement(required = true)
-    protected String dimensions;
+    protected String dimensions = "Não especificado";
     @XmlElement(required = true)
-    protected String weight;
+    protected String weight = "Não especificado";
     @XmlAttribute(name = "model", required = true)
     @XmlSchemaType(name = "anySimpleType")
     protected String model;

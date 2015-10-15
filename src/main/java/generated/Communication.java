@@ -44,9 +44,9 @@ import javax.xml.bind.annotation.XmlType;
 public class Communication {
 
     @XmlElement(required = true)
-    protected String bluetooth;
+    protected String bluetooth = "Não especificado";
     @XmlElement(required = true)
-    protected String wifi;
+    protected String wifi  = "Não especificado";
 
     /**
      * Gets the value of the bluetooth property.
