@@ -1,11 +1,10 @@
 package summary;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.StringReader;
+import java.util.Calendar;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -21,6 +20,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.*;
 
@@ -28,7 +29,7 @@ import org.xml.sax.SAXException;
 
 public class HTMLSummaryCreator implements MessageListener {
 	private ConnectionFactory cf;
-	private Destination d;
+	private Topic d;
 
 	public HTMLSummaryCreator() throws NamingException {
 		this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
@@ -42,8 +43,7 @@ public class HTMLSummaryCreator implements MessageListener {
 		
 		try {
 			xml = tmsg.getText();
-			xml = xml.trim().replaceFirst("^([\\W]+)<","<");
-			xml = xml.replaceAll("[^\\x20-\\x7e\\x0A]", "");
+			addXslt(xml);
 			validator(xml);
 		} catch (JMSException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class HTMLSummaryCreator implements MessageListener {
 	public void launch_and_wait() {
 		try (JMSContext jcontext = cf.createContext("summary", "secret");) {
 			jcontext.setClientID("summary");
-			JMSConsumer consumer = jcontext.createDurableConsumer((Topic) d, "summary");
+			JMSConsumer consumer = jcontext.createDurableConsumer(d, "summary");
 			consumer.setMessageListener(this);
 			System.out.println("Press enter to finish...");
 			System.in.read();
@@ -83,5 +83,32 @@ public class HTMLSummaryCreator implements MessageListener {
 			System.out.println("Reason: " + e.getLocalizedMessage());
 		}
 	}
+	
+	private void addXslt(String msg){
+        
+        try {
+
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource("TablePrinter.xsl"));
+            String name = Long.toString(Calendar.getInstance().getTimeInMillis());
+            // create new directory, if it doesn't exist
+            File theDir = new File("htmls");
+            if (!theDir.exists()) {
+                try{
+                    theDir.mkdir();
+                }
+                catch(SecurityException se){
+                    se.printStackTrace();
+                }
+            }
+            
+            transformer.transform(new javax.xml.transform.stream.StreamSource(new StringReader(msg)), 
+                    new javax.xml.transform.stream.StreamResult( new FileOutputStream("htmls/" + name + ".html")));
+        }
+        catch (Exception e) {
+            e.printStackTrace( );
+        }
+        
+    }
 
 }
