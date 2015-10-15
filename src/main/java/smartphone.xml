@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="TablePrinter.xsl"?>
+
+
+
+<smartphones>
+	<smartphone model = "SAMSUNG Galaxy S6 Edge Plus">
+		<url>http://www.pixmania.pt/smartphone/samsung-galaxy-s6-edge-plus-preto-32-gb-4g-smartphone/22807631-a.html</url>
+		<price>665,00 € </price>
+		<color>Preto</color>
+		<so>Android 5.0 Lollipop / Interface utilizador Samsung TouchWiz + EtiquEdge</so>
+		<processor>Octo Core 2,1 GHz</processor>
+		<screen>
+			<type>Ecrã capacitivo Super AMOLED</type>
+			<size>5,7" (2560 x 1440 píxeis)</size>
+		</screen>
+		<frequency>800/850/900/1800/1900/2100/2600 MHz</frequency>
+		<network>4G</network>
+		<communication>
+			<bluetooth>Bluetooth 4.2 LE e NFC</bluetooth>
+			<wifi>802.11 a/b/g/n/ac (2,4/5 GHz) MIMO</wifi>
+		</communication>
+		<camera>Máquina fotográfica (atrás): 16 megapixeis
+				Câmara frontal: 2 megapixeis</camera>
+		<battery_type>Bateria de lítio polímero 3000 mAh</battery_type>
+		<autonomy>Até 22 horas em comunicação</autonomy>
+		<dimensions>154,4 x 75,8 x 6,9 mm</dimensions>
+		<weight>153 g</weight>
+	</smartphone>
+	<smartphone model = "SAMSUNG Galaxy S6 Edge Plus">
+		<url>http://www.pixmania.pt/smartphone/samsung-galaxy-s6-edge-plus-preto-32-gb-4g-smartphone/22807631-a.html</url>
+		<price>665,00 € </price>
+		<color>Preto</color>
+		<so>Android 5.0 Lollipop / Interface utilizador Samsung TouchWiz + EtiquEdge</so>
+		<processor>Octo Core 2,1 GHz</processor>
+		<screen>
+			<type>Ecrã capacitivo Super AMOLED</type>
+			<size>5,7" (2560 x 1440 píxeis)</size>
+		</screen>
+		<frequency>800/850/900/1800/1900/2100/2600 MHz</frequency>
+		<network>4G</network>
+		<communication>
+			<bluetooth>Bluetooth 4.2 LE e NFC</bluetooth>
+			<wifi>802.11 a/b/g/n/ac (2,4/5 GHz) MIMO</wifi>
+		</communication>
+		<camera>Máquina fotográfica (atrás): 16 megapixeis
+				Câmara frontal: 2 megapixeis</camera>
+		<battery_type>Bateria de lítio polímero 3000 mAh</battery_type>
+		<autonomy>Até 22 horas em comunicação</autonomy>
+		<dimensions>154,4 x 75,8 x 6,9 mm</dimensions>
+		<weight>153 g</weight>
+	</smartphone>
+</smartphones>

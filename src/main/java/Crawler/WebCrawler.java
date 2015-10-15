@@ -67,7 +67,7 @@ public class WebCrawler {
 		Elements phoneDom = dom.select("header.productTitle");
 
 		for (Element e : phoneDom) {
-			// System.out.println("Next URL: "+ e.child(0).absUrl("href"));
+			
 			dom_child = jSoupLoader(e.child(0).absUrl("href"));
 
 			
@@ -80,7 +80,9 @@ public class WebCrawler {
 			Elements categoriesPicker = dom_child.select("table.simpleTable tr");
 			
 			smartphone.setModel(titlePicker.text());
+			smartphone.setUrl(e.child(0).absUrl("href"));
 			smartphone.setPrice(pricePicker.text());
+		
 
 			for (Element aspects : categoriesPicker) {
 				
@@ -141,8 +143,12 @@ public class WebCrawler {
 					break;
 
 				}
+				
 			}
+			smartphone.setScreen(screen);
+			smartphone.setCommunication(communication);
 			smartphonesList.getSmartphone().add(smartphone);
+			
 			
 		}
 	}
