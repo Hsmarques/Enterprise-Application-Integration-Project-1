@@ -15,11 +15,8 @@ public class Sender {
 			this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
 			this.d = InitialContext.doLookup("jms/queue/QueueProject");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+		
 }

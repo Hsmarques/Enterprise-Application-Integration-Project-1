@@ -39,12 +39,9 @@ public class HTMLSummaryCreator implements MessageListener {
 	@Override
 	public void onMessage(Message msg) {
 		TextMessage tmsg = (TextMessage) msg;
-		String xml = new String();
 		
 		try {
-			xml = tmsg.getText();
-			addXslt(xml);
-			validator(xml);
+			validator(tmsg.getText());
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
@@ -78,6 +75,7 @@ public class HTMLSummaryCreator implements MessageListener {
 			Validator validator = schema.newValidator();
 			validator.validate(xmlFile);
 			System.out.println("XML file is valid");
+			addXslt(xml);
 		} catch (SAXException | IOException e) {
 			System.out.println("XML file is NOT valid");
 			System.out.println("Reason: " + e.getLocalizedMessage());
