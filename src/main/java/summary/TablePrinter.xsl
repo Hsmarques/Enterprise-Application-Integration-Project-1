@@ -27,7 +27,7 @@
       <xsl:for-each select="//smartphone">
 				<tr>
 						<td align = "center">
-							<xsl:value-of select="model" />
+							<xsl:value-of select="@model" />
 						</td>
 						<td  align = "justify">
 							<xsl:value-of select="url" />
@@ -35,43 +35,43 @@
 						<td align = "center">
 							<xsl:value-of select="price" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="so" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="processor" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="screen/type" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="screen/size" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="frequency" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="network" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="communication/bluetooth" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="communication/wifi" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="camera" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="battery_type" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="autonomy" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="dimensions" />
 						</td>
-						<td>
+						<td align = "center">
 							<xsl:value-of select="weight" />
 						</td>
 						
