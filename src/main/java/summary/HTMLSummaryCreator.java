@@ -1,7 +1,10 @@
 package summary;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.StringReader;
 
 import javax.jms.ConnectionFactory;
@@ -36,11 +39,12 @@ public class HTMLSummaryCreator implements MessageListener {
 	public void onMessage(Message msg) {
 		TextMessage tmsg = (TextMessage) msg;
 		String xml = new String();
+		
 		try {
-//			xml = tmsg.toString();
-//			xml = xml.trim().replaceFirst("^([\\W]+)<","<");
-//			xml = xml.replaceAll("[^\\x20-\\x7e\\x0A]", "");
-			validator(tmsg.getText());
+			xml = tmsg.getText();
+			xml = xml.trim().replaceFirst("^([\\W]+)<","<");
+			xml = xml.replaceAll("[^\\x20-\\x7e\\x0A]", "");
+			validator(xml);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +55,7 @@ public class HTMLSummaryCreator implements MessageListener {
 			jcontext.setClientID("summary");
 			JMSConsumer consumer = jcontext.createDurableConsumer((Topic) d, "summary");
 			consumer.setMessageListener(this);
-			//System.out.println("Press enter to finish...");
+			System.out.println("Press enter to finish...");
 			System.in.read();
 			consumer.close();
 			

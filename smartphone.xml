@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"? standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="TablePrinter.xsl"?>
 
 
@@ -7,7 +7,6 @@
 	<smartphone model = "SAMSUNG Galaxy S6 Edge Plus">
 		<url>http://www.pixmania.pt/smartphone/samsung-galaxy-s6-edge-plus-preto-32-gb-4g-smartphone/22807631-a.html</url>
 		<price>665,00 € </price>
-		<color>Preto</color>
 		<so>Android 5.0 Lollipop / Interface utilizador Samsung TouchWiz + EtiquEdge</so>
 		<processor>Octo Core 2,1 GHz</processor>
 		<screen>
@@ -30,7 +29,6 @@
 	<smartphone model = "SAMSUNG Galaxy S6 Edge Plus">
 		<url>http://www.pixmania.pt/smartphone/samsung-galaxy-s6-edge-plus-preto-32-gb-4g-smartphone/22807631-a.html</url>
 		<price>665,00 € </price>
-		<color>Preto</color>
 		<so>Android 5.0 Lollipop / Interface utilizador Samsung TouchWiz + EtiquEdge</so>
 		<processor>Octo Core 2,1 GHz</processor>
 		<screen>
