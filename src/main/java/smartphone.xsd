@@ -12,7 +12,6 @@
       <xs:sequence>
         <xs:element ref="url"/>
         <xs:element ref="price"/>
-        <xs:element ref="color"/>
         <xs:element ref="so"/>
         <xs:element ref="processor"/>
         <xs:element ref="screen"/>
@@ -30,7 +29,6 @@
   </xs:element>
   <xs:element name="url" type="xs:anyURI"/>
   <xs:element name="price" type="xs:string"/>
-  <xs:element name="color" type="xs:NCName"/>
   <xs:element name="so" type="xs:string"/>
   <xs:element name="processor" type="xs:string"/>
   <xs:element name="screen">

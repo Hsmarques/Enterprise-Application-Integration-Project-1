@@ -61,10 +61,13 @@ public class WebCrawler {
 		Document dom = null;
 		Document dom_child = null;
 
-		// Load the DOM
+		/*
+		 * Load the DOM of pixmania phones
+		 */
+		
 		dom = jSoupLoader(prop.getProperty("url"));
 
-		Elements phoneDom = dom.select("header.productTitle");
+		Elements phoneDom = dom.select("header.productTitle");//Selects ea
 
 		for (Element e : phoneDom) {
 			
@@ -174,10 +177,10 @@ public class WebCrawler {
 	public static Document jSoupLoader(String url) {
 		Document dom = null;
 		try {
-			// Load the DOM
+			
 			dom = Jsoup.connect(url).timeout(0).get();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		return dom;
