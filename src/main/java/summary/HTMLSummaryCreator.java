@@ -37,9 +37,10 @@ public class HTMLSummaryCreator implements MessageListener {
 		TextMessage tmsg = (TextMessage) msg;
 		String xml = new String();
 		try {
-			System.out.println(tmsg.getText());
-			xml = tmsg.toString();
-			validator(xml);
+//			xml = tmsg.toString();
+//			xml = xml.trim().replaceFirst("^([\\W]+)<","<");
+//			xml = xml.replaceAll("[^\\x20-\\x7e\\x0A]", "");
+			validator(tmsg.getText());
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
@@ -50,7 +51,7 @@ public class HTMLSummaryCreator implements MessageListener {
 			jcontext.setClientID("summary");
 			JMSConsumer consumer = jcontext.createDurableConsumer((Topic) d, "summary");
 			consumer.setMessageListener(this);
-			System.out.println("Press enter to finish...");
+			//System.out.println("Press enter to finish...");
 			System.in.read();
 			consumer.close();
 			
@@ -72,10 +73,10 @@ public class HTMLSummaryCreator implements MessageListener {
 			Schema schema = schemaFactory.newSchema(schemaFile);
 			Validator validator = schema.newValidator();
 			validator.validate(xmlFile);
-			System.out.println(xmlFile.getSystemId() + " is valid");
+			System.out.println("XML file is valid");
 		} catch (SAXException | IOException e) {
-			System.out.println(xmlFile.getSystemId() + " is NOT valid");
-			System.out.println("Reason: " + e.getLocalizedMessage() + "\noi:" + e.getMessage());
+			System.out.println("XML file is NOT valid");
+			System.out.println("Reason: " + e.getLocalizedMessage());
 		}
 	}
 
