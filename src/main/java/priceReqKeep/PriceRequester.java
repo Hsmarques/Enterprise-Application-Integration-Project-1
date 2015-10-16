@@ -43,7 +43,7 @@ public class PriceRequester{
 		JMSConsumer jmsconsumer = jcontext.createConsumer(replyto);
 		TextMessage reply = (TextMessage) jmsconsumer.receive();
 		try {
-			System.out.println("Sender got back: " + reply.getText());
+			System.out.println("Resultado da procura:\n" + reply.getText());
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class PriceRequester{
 
 	public static void main(String[] args) throws NamingException {
 		PriceRequester pricereq = new PriceRequester();
-		System.out.println("Introduza a marca seguida do modelo(opcional):");
+		System.out.println("Introduza a marca e/ou modelo do Smartphone:");
 		pricereq.createTempDest(inputkey.nextLine());
 	}
 

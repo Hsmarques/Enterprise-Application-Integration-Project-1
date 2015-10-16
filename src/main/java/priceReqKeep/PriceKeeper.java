@@ -27,7 +27,7 @@ public class PriceKeeper implements MessageListener {
 	private Destination dest;
 	private JMSContext jcontext_queue;
 	private JMSConsumer consumer_queue;
-	private Smartphones smartphones;
+	private static Smartphones smartphones;
 
 	public PriceKeeper() throws NamingException {
 		this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
@@ -37,23 +37,19 @@ public class PriceKeeper implements MessageListener {
 	@Override
 	public void onMessage(Message msg) {
 		try {
-			System.out.println("asdf");
-			JMSConsumer mc = jcontext_queue.createConsumer(dest);
-			System.out.println("sera?");
-			TextMessage textmsg = (TextMessage) mc.receive();
-			System.out.println("oi");
-			TextMessage reply = jcontext_queue.createTextMessage(getSmartphone(textmsg.getText()));
-			System.out.println("parou");
 			JMSProducer mp = jcontext_queue.createProducer();
-			mp.send(msg.getJMSReplyTo(),"sup");
+			TextMessage textmsg = (TextMessage) msg;
+			String reply = getSmartphone(textmsg.getText());
+			System.out.println("Received request for: " + textmsg);
+			mp.send(msg.getJMSReplyTo(),reply);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void launch_and_wait() {
 		try {
-			jcontext_queue = cf.createContext("pricereq", "secret");
+			jcontext_queue = cf.createContext("pricekeeper", "secret");
 			consumer_queue = jcontext_queue.createConsumer(dest);
 			consumer_queue.setMessageListener(this);
 		} catch (JMSRuntimeException re) {

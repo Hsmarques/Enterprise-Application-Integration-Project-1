@@ -28,8 +28,8 @@ import priceReqKeep.PriceKeeper;
 
 public class ReceiverAsync extends PriceKeeper implements MessageListener {
 	
-	JMSContext jcontext;
-	private ConnectionFactory cf;
+	static JMSContext jcontext;
+	private static ConnectionFactory cf;
 	private Topic topic;
 	private static JMSContext jcontext_topic;
 	private static JMSConsumer consumer_topic;
@@ -53,9 +53,9 @@ public class ReceiverAsync extends PriceKeeper implements MessageListener {
 
 	public void launch_and_wait() {
 		try {
-			jcontext_topic = cf.createContext("pricereq", "secret");
-			jcontext_topic.setClientID("pricereq");
-			consumer_topic = jcontext_topic.createDurableConsumer( topic, "pricereq");
+			jcontext_topic = cf.createContext("pricekeeper", "secret");
+			jcontext_topic.setClientID("pricekeeper");
+			consumer_topic = jcontext_topic.createDurableConsumer( topic, "pricekeeper");
 			consumer_topic.setMessageListener(this);
 			
 		} catch (JMSRuntimeException re) {
