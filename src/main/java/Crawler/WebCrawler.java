@@ -34,6 +34,7 @@ public class WebCrawler {
 	static Smartphones smartphonesList = new Smartphones();
 	static StringWriter stringwriter = new StringWriter();
 	static String old = null;
+	static boolean fileExists = false;
 
 	public static void main(String[] args) throws NamingException {
 		Sender s = new Sender();
@@ -51,14 +52,11 @@ public class WebCrawler {
 			// If the xml is successfully sent deletes the file
 			if (s.getMaxtries() < 10) {
 				s.send(old);
-				if (file.exists())
+				if (file.exists()){
 					file.delete();
+				}
 			}
-		} else {
-			crawlingForData();
-			marshall(smartphonesList);
-			
-			// In case it fails to connect to WildFly saves the XML
+		} else {// In case it fails to connect to WildFly saves the XML
 			if (s.getMaxtries() == 10) {
 				saveXML(stringwriter.toString());
 			} else {
@@ -97,7 +95,7 @@ public class WebCrawler {
 
 	// Crawler for the PixMania
 	public static void crawlingForData() {
-
+		System.out.println("Retrieving data!");
 		Properties prop = new Properties();
 		InputStream input = null;
 

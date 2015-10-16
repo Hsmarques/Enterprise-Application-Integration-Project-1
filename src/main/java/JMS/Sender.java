@@ -18,13 +18,14 @@ public class Sender {
 		//Tries to connect 10 times to WildFly with an interval of 5 seconds
 		while (maxtries < 10) {
 			try {
+				System.out.println("Trying to connect!");
 				this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
 				this.d = InitialContext.doLookup("jms/topic/TopicProject");
 			} catch (Exception e) {
 				System.out.println("Failed to connect to WildFly!\nRetrying in 5 seconds...");
 				maxtries++;
 				try {
-				    Thread.sleep(500);
+				    Thread.sleep(5000);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
