@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 
 import priceReqKeep.PriceKeeper;
 
-public class ReceiverAsync extends PriceKeeper implements MessageListener {
+public class ReceiverTopic extends PriceKeeper implements MessageListener {
 	
 	JMSContext jcontext;
 	private ConnectionFactory cf;
@@ -35,7 +35,7 @@ public class ReceiverAsync extends PriceKeeper implements MessageListener {
 	private static JMSConsumer consumer_topic;
 	
 
-	public ReceiverAsync() throws NamingException {
+	public ReceiverTopic() throws NamingException {
 		this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
 		this.topic = InitialContext.doLookup("jms/topic/TopicProject");
 		

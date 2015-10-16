@@ -17,7 +17,7 @@ import javax.naming.NamingException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import JMS.ReceiverAsync;
+import JMS.ReceiverTopic;
 import generated.Smartphone;
 import generated.Smartphones;
 
@@ -103,7 +103,7 @@ public class PriceKeeper implements MessageListener {
 	public static void main(String[] args) throws NamingException {
 		PriceKeeper pricekeeper = new PriceKeeper();
 		pricekeeper.launch_and_wait();
-		ReceiverAsync receiverTopic = new ReceiverAsync();
+		ReceiverTopic receiverTopic = new ReceiverTopic();
 		receiverTopic.launch_and_wait();
 		try {
 			System.out.println("Press enter to finish...");

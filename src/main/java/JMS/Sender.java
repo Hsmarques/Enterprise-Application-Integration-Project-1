@@ -12,15 +12,33 @@ public class Sender {
 
 	private ConnectionFactory cf;
 	private Destination d;
+	private int maxtries = 0;
 
 	public Sender() throws NamingException {
-		try {
-			this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
-			this.d = InitialContext.doLookup("jms/topic/TopicProject");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//Tries to connect 10 times to WildFly with an interval of 5 seconds
+		while (maxtries < 10) {
+			try {
+				this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
+				this.d = InitialContext.doLookup("jms/topic/TopicProject");
+				break;
+			} catch (Exception e) {
+				System.out.println("Failed to connect to WildFly!\nRetrying in 5 seconds...");
+				maxtries++;
+				try {
+				    Thread.sleep(5000);
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
+			} 
 		}
+	}
+
+	public int getMaxtries() {
+		return maxtries;
+	}
+
+	public void setMaxtries(int maxtries) {
+		this.maxtries = maxtries;
 	}
 
 	public void send(String text) {
