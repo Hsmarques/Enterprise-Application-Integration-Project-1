@@ -12,9 +12,10 @@ public class Sender {
 
 	private ConnectionFactory cf;
 	private Destination d;
+	private int maxtries = 0;
 
 	public Sender() throws NamingException {
-		int maxtries=0;
+		//Tries to connect 10 times to WildFly with an interval of 5 seconds
 		while (maxtries < 10) {
 			try {
 				this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
@@ -23,13 +24,20 @@ public class Sender {
 				System.out.println("Failed to connect to WildFly!\nRetrying in 5 seconds...");
 				maxtries++;
 				try {
-				    Thread.sleep(1000);                 //1000 milliseconds is one second.
+				    Thread.sleep(500);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
-				e.printStackTrace();
 			} 
 		}
+	}
+
+	public int getMaxtries() {
+		return maxtries;
+	}
+
+	public void setMaxtries(int maxtries) {
+		this.maxtries = maxtries;
 	}
 
 	public void send(String text) {
