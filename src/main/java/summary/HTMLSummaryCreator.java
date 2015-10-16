@@ -5,9 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Calendar;
-
 import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
