@@ -1,23 +1,46 @@
 package Crawler;
 
+import generated.Communication;
+import generated.Screen;
+import generated.Smartphone;
+import generated.Smartphones;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.Properties;
+
+import javax.naming.NamingException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import JMS.Sender;
+
 public class WebCrawler {
+
+	static Smartphones smartphonesList = new Smartphones ();
+	static StringWriter stringwriter = new StringWriter();
+
 	
+	public static void main(String[] args) throws NamingException {
+		Sender s = new Sender();
+		crawlingThoseWebz();
+		marshall(smartphonesList);
+		s.send(stringwriter.toString());
+	}
 	
-	public static void main(String[] args) {
+	public static void crawlingThoseWebz(){
 		
 		Properties prop = new Properties();
 		InputStream input = null;
-		
+
 		try {
 			input = new FileInputStream("config.properties");
 			prop.load(input);
@@ -32,94 +55,139 @@ public class WebCrawler {
 				}
 			}
 		}
-		
+
 		Document dom = null;
 		Document dom_child = null;
+
+		/*
+		 * Load the DOM of pixmania phones
+		 */
 		
-		try {
+		dom = jSoupLoader(prop.getProperty("url"));
+
+		Elements phoneDom = dom.select("header.productTitle");//Selects ea
+
+		for (Element e : phoneDom) {
 			
-			//Load the DOM
-			dom = Jsoup.connect(prop.getProperty("url")).timeout(0).get();
+			dom_child = jSoupLoader(e.child(0).absUrl("href"));
+
+			
+			Smartphone smartphone = new Smartphone();
+			Screen screen = new Screen();
+			Communication communication = new Communication();
+
+			Elements titlePicker = dom_child.select(".pageTitle > span");
+			Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
+			Elements categoriesPicker = dom_child.select("table.simpleTable tr");
+			
+			smartphone.setModel(titlePicker.text());
+			smartphone.setUrl(e.child(0).absUrl("href"));
+			smartphone.setPrice(pricePicker.text());
 		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
+			for (Element aspects : categoriesPicker) {
+				
+				switch (aspects.select("th").text().toLowerCase()) {
+
+					case "sistema operativo":
+						smartphone.setSo(aspects.select("td").text());
+						break;
+					case "processador":
+						smartphone.setProcessor(aspects.select("td").text());
+						break;
+					case "tecnologia do ecrã":
+						screen.setType(aspects.select("td").text());
+						break;
+					case "tamanho do ecrã":
+						screen.setSize(aspects.select("td").text());
+						break;
+					case "frequências":
+						smartphone.setFrequency(aspects.select("td").text());
+						break;
+					case "redes":
+						smartphone.setNetwork(aspects.select("td").text());
+						break;
+					case "bluetooth":
+						communication.setBluetooth(aspects.select("td").text());
+						break;
+					case "wi-fi":
+						communication.setWifi(aspects.select("td").text());
+						break;
+					case "resolução máxima (em pixeis)":
+						if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						} else {
+							break;
+						}
+					case "câmera traseira":
+						if (aspects.parent().previousElementSibling().text().toLowerCase().equals("máquina fotográfica")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						} else if(aspects.parent().previousElementSibling().text().toLowerCase().equals("fotografia")) {
+							smartphone.setCamera(aspects.select("td").text());
+							break;
+						}
+						else 
+							break;
+					case "bateria":
+						smartphone.setBatteryType(aspects.select("td").text());
+						break;
+					case "autonomia":
+						smartphone.setAutonomy(aspects.select("td").text());
+						break;
+					case "autonomia em conversação":
+						smartphone.setAutonomy(aspects.select("td").text());
+						break;
+					case "dimensões":
+						smartphone.setDimensions(aspects.select("td").text());
+						break;
+					case "peso":
+						smartphone.setWeight(aspects.select("td").text());
+						break;
+					default:
+						break;
+				}
+				
+			}
+			smartphone.setScreen(screen);
+			smartphone.setCommunication(communication);
+			smartphonesList.getSmartphone().add(smartphone);
+			
+			
+		}
+	}
+	
+	public static void marshall(Smartphones smartphones) {
+
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Smartphones.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(smartphonesList, stringwriter);
+			System.out.println(stringwriter.getBuffer());
+
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		
-		Elements phoneList = dom.select("header.productTitle");
-		
-		for(Element e: phoneList){
-			//System.out.println("Next URL: "+ e.child(0).absUrl("href"));
-			try {
-				
-				dom_child = Jsoup.connect(e.child(0).absUrl("href")).timeout(0).get();
-				
-				Elements titlePicker = dom_child.select(".pageTitle > span");/*Gets the title tag and content*/
-				Elements pricePicker = dom_child.select("div.currentPrice").select("ins");
-				Elements categoriesPicker = dom_child.select(".simpleTable tr");
-				
-			
-				
-				
-				for(Element aspects : categoriesPicker){
-					
-					
-					
-					switch(aspects.select("th").text().toLowerCase()){
-				
-						case "sistema operativo":
-							System.out.println("so: " + aspects.select("td").text());
-						break;
-						case "tecnologia do ecrã":  
-							System.out.println("tecnologia ecra: "+ aspects.select("td").text()+"\n");
-						break;
-						case "tamanho do ecrã":  
-							System.out.println("tamanho ecra:" + aspects.select("td").text());
-						break;
-						case "frequências":  
-							System.out.println("Frequências:" + aspects.select("td").text());
-						break;
-						case "redes":  
-							System.out.println("redes:" + aspects.select("td").text());
-						break;
-						case "bluetooth":  
-							System.out.println("bluetooth:" + aspects.select("td").text());
-						break;
-						case "wifi":  
-							System.out.println("wifi:" + aspects.select("td").text());
-						break;
-						case "câmera frontal":
-							System.out.println("CAMERAAAAAA");
-							if(aspects.parent().previousElementSibling().text().toLowerCase() == "fotografia")
-								System.out.println("funciona!!!!!!!!!!!!!");
-							else
-								System.out.println("nao funciona ");
-						break;
-						case "câmera traseira":
-						break;	
-						case "bateria":
-						break;
-						case "autonomia":
-						break;
-						case "dimensoes":
-						break;
-						case "pesos":
-						break;
-						default://System.out.println("default break");
-						break;
-				
-					}
-				}
-		
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		}
-		
-		String title = dom.title();
-		System.out.println(title);
+
 	}
 
+	public static Document jSoupLoader(String url) {
+		Document dom = null;
+		try {
+			
+			dom = Jsoup.connect(url).timeout(0).get();
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		return dom;
+	}
+	
+	
+	
 }
