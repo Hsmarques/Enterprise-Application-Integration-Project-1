@@ -14,12 +14,21 @@ public class Sender {
 	private Destination d;
 
 	public Sender() throws NamingException {
-		try {
-			this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
-			this.d = InitialContext.doLookup("jms/topic/TopicProject");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		int maxtries=0;
+		while (maxtries < 10) {
+			try {
+				this.cf = InitialContext.doLookup("jms/RemoteConnectionFactory");
+				this.d = InitialContext.doLookup("jms/topic/TopicProject");
+			} catch (Exception e) {
+				System.out.println("Failed to connect to WildFly!\nRetrying in 5 seconds...");
+				maxtries++;
+				try {
+				    Thread.sleep(1000);                 //1000 milliseconds is one second.
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
+				e.printStackTrace();
+			} 
 		}
 	}
 
